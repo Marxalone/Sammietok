@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buy Fresh Account — Sammie</title>
+  <style>
+    /* Base Styles */
+    body {
+      background-color: white;
+      color: #111827;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: black;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    main {
+      padding: 5rem 1.5rem;
+      max-width: 32rem;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-tag {
+      color: #4b5563;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    /* Form Styles */
+    .purchase-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      padding: 0.75rem;
+      border-radius: 0.375rem;
+    }
+
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .pay-button {
+      width: 100%;
+      background-color: #ef4444;
+      color: white;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 1.125rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .pay-button:hover {
+      background-color: #dc2626;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Sammie TikTok</a>
+  </header>
+
+  <main>
+    <h1>Buy Fresh US/UK TikTok Account</h1>
+    <p class="price-tag">₦5,000 per account</p>
+
+    <form id="purchaseForm" class="purchase-form">
+      <div class="form-group">
+        <label for="quantity">How many accounts?</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1">
+      </div>
+      
+      <div class="total-price" id="totalPrice">Total: ₦5,000</div>
+
+      <button type="button" onclick="payNow()" class="pay-button">
+        Pay Now
+      </button>
+    </form>
+  </main>
+
+  <script>
+    const quantityInput = document.getElementById('quantity');
+    const totalPriceText = document.getElementById('totalPrice');
+    const pricePerAccount = 5000;
+
+    quantityInput.addEventListener('input', () => {
+      const quantity = parseInt(quantityInput.value) || 1;
+      totalPriceText.innerText = `Total: ₦${quantity * pricePerAccount}`;
+    });
+
+    function payNow() {
+      const quantity = quantityInput.value;
+      const total = quantity * pricePerAccount;
+      window.location.href = `/payment.html?type=fresh&qty=${quantity}&amount=${total}`;
+    }
+  </script>
+
+</body>
+</html>

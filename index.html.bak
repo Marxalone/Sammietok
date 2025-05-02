@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sammie TikTok Accounts</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="icon" href="logo.jpg" type="image/jpg">
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-black text-white p-4 flex justify-between items-center">
+    <img src="logo.jpg" alt="Sammie Logo" class="h-10 rounded-full">
+    <nav>
+      <ul class="flex space-x-6">
+        <li><a href="#home" class="hover:text-red-500">Home</a></li>
+        <li><a href="#buy" class="hover:text-red-500">Buy Account</a></li>
+        <li><a href="#how" class="hover:text-red-500">How It Works</a></li>
+        <li><a href="#faq" class="hover:text-red-500">FAQ</a></li>
+        <li><a href="#contact" class="hover:text-red-500">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="bg-gradient-to-r from-black to-gray-800 text-white text-center py-20 px-4">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4">Start Earning with US/UK TikTok Accounts</h1>
+    <p class="text-lg md:text-xl mb-6">Boost your earnings, get higher sponsorships, and grow faster!</p>
+    <a href="#buy" class="bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-full text-lg">Buy Now</a>
+  </section>
+
+  <!-- Why Buy -->
+  <section class="py-16 px-6 text-center">
+    <h2 class="text-3xl font-bold mb-8">Why Buy from Sammie?</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+        <h3 class="font-bold text-xl mb-4">Higher Sponsorships</h3>
+        <p>Get access to brands that pay in dollars and pounds!</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+        <h3 class="font-bold text-xl mb-4">International Growth</h3>
+        <p>Reach massive audiences in the US and UK for faster viral growth.</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+        <h3 class="font-bold text-xl mb-4">Immediate Access</h3>
+        <p>Accounts delivered instantly after payment confirmation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Account Types -->
+  <section id="buy" class="py-16 px-6 bg-gray-50">
+    <h2 class="text-3xl font-bold mb-8 text-center">Choose Your Account</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+        <h3 class="text-2xl font-bold mb-4">Fresh US/UK TikTok Account</h3>
+        <p class="mb-6">Start fresh with a brand new verified US/UK TikTok account.</p>
+        <p class="text-3xl font-bold mb-6">₦5,000</p>
+        <a href="/buy-fresh" class="bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-full text-lg">Buy Now</a>
+      </div>
+      <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+        <h3 class="text-2xl font-bold mb-4">Old US/UK TikTok Account</h3>
+        <p class="mb-6">Get an aged account for faster growth and trust.</p>
+        <p class="text-3xl font-bold mb-6">₦10,000</p>
+        <a href="/buy-old" class="bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-full text-lg">Buy Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how" class="py-16 px-6 text-center">
+    <h2 class="text-3xl font-bold mb-8">How It Works</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+        <h3 class="font-bold text-xl mb-4">1. Choose Account</h3>
+        <p>Select Fresh or Old TikTok accounts.</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+        <h3 class="font-bold text-xl mb-4">2. Pay Securely</h3>
+        <p>Pay easily through our trusted platform.</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+        <h3 class="font-bold text-xl mb-4">3. Get Details Instantly</h3>
+        <p>Access your TikTok account details immediately after payment!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 px-6 bg-gray-50">
+    <h2 class="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-8 max-w-3xl mx-auto">
+      <div>
+        <h3 class="font-bold text-lg">What type of TikTok accounts do you sell?</h3>
+        <p>Fresh US/UK accounts and aged US/UK accounts for better engagement.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg">Is it instant delivery?</h3>
+        <p>Yes! Once payment is confirmed, your account details are released immediately.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg">Can I buy multiple accounts at once?</h3>
+        <p>Absolutely. Buy as many as you want — the system will give you multiple account logins.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-16 px-6 text-center">
+    <h2 class="text-3xl font-bold mb-8">Need Help?</h2>
+    <p class="mb-6">Reach out directly via WhatsApp.</p>
+    <a href="https://wa.link/95thko" target="_blank" class="bg-red-500 hover:bg-red-600 text-white py-3 px-6 rounded-full text-lg">Contact Sammie Now</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white text-center py-6">
+    <p>&copy; 2025 Sammie TikTok Accounts. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

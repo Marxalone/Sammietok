@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel | Sammie Store</title>
+  <style>
+    body {
+      background-color: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    .password-screen {
+      background-color: white;
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      width: 100%;
+      max-width: 28rem;
+    }
+    
+    .admin-panel {
+      display: none;
+      width: 100%;
+      padding: 1rem;
+      max-width: 56rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .panel-title {
+      font-size: 1.875rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    input[type="password"] {
+      width: 100%;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .login-btn {
+      width: 100%;
+      background-color: #16a34a;
+      color: white;
+      padding: 0.5rem 0;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .login-btn:hover {
+      background-color: #15803d;
+    }
+    
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .accounts-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .account-box {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+    
+    .account-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .account-list {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="passwordScreen" class="password-screen">
+    <h1>Admin Login</h1>
+    <input type="password" id="adminPass" placeholder="Enter Admin Password">
+    <button onclick="checkPassword()" class="login-btn">Login</button>
+  </div>
+
+  <div id="adminPanel" class="admin-panel">
+    <h1 class="panel-title">Account Stock List</h1>
+
+    <div class="accounts-grid">
+      <div class="account-box">
+        <h2 class="account-title">Fresh UK/US Accounts</h2>
+        <ul id="freshList" class="account-list"></ul>
+      </div>
+
+      <div class="account-box">
+        <h2 class="account-title">Old UK/US Accounts</h2>
+        <ul id="oldList" class="account-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const pass = document.getElementById('adminPass').value;
+      if (pass === "SammieAdmin10") {
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        loadAccounts();
+      } else {
+        alert("Wrong password!");
+      }
+    }
+
+    function loadAccounts() {
+      // Example Gmail:passwords
+      const freshAccounts = [
+        "freshacc1@gmail.com:password123",
+        "freshacc2@gmail.com:password123",
+        "freshacc3@gmail.com:password123"
+      ];
+
+      const oldAccounts = [
+        "oldacc1@gmail.com:password123",
+        "oldacc2@gmail.com:password123"
+      ];
+
+      const freshList = document.getElementById('freshList');
+      const oldList = document.getElementById('oldList');
+
+      freshAccounts.forEach(acc => {
+        const li = document.createElement('li');
+        li.innerText = acc;
+        freshList.appendChild(li);
+      });
+
+      oldAccounts.forEach(acc => {
+        const li = document.createElement('li');
+        li.innerText = acc;
+        oldList.appendChild(li);
+      });
+    }
+  </script>
+
+</body>
+</html>

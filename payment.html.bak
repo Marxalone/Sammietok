@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment — Sammie TikTok</title>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <header class="bg-black text-white p-4 flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold">Sammie TikTok</a>
+  </header>
+
+  <section class="py-20 px-6 max-w-xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8 text-center">Confirm Your Order</h1>
+    <div class="bg-white p-6 rounded shadow-md space-y-4">
+      <p><strong>Account Type:</strong> <span id="accountType"></span></p>
+      <p><strong>Quantity:</strong> <span id="quantity"></span></p>
+      <p><strong>Total Amount:</strong> ₦<span id="amount"></span></p>
+
+      <button onclick="payWithPaystack()" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg text-lg">
+        Proceed to Payment
+      </button>
+    </div>
+  </section>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
+    const qty = urlParams.get('qty');
+    const amount = urlParams.get('amount');
+
+    document.getElementById('accountType').innerText = type === 'fresh' ? 'Fresh US/UK' : 'Old US/UK';
+    document.getElementById('quantity').innerText = qty;
+    document.getElementById('amount').innerText = amount;
+
+    function payWithPaystack() {
+      var handler = PaystackPop.setup({
+        key: 'YOUR_PUBLIC_PAYSTACK_KEY', // Replace this
+        email: 'customer@email.com', // Optional
+        amount: amount * 100, // In kobo
+        currency: "NGN",
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+        callback: function(response){
+            window.location.href = `/success.html?type=${type}&qty=${qty}`;
+        },
+        onClose: function(){
+            alert('Transaction cancelled.');
+        }
+      });
+      handler.openIframe();
+    }
+  </script>
+
+</body>
+</html>

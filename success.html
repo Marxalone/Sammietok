@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Successful | Sammie Store</title>
+  <style>
+    body {
+      background-color: #ecfdf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    
+    .container {
+      background-color: white;
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 28rem;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      line-height: 2rem;
+      font-weight: 700;
+      color: #16a34a;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .message {
+      color: #374151;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    #accountDetails {
+      text-align: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    
+    #accountDetails > * + * {
+      margin-top: 0.5rem;
+    }
+    
+    .btn {
+      margin-top: 1.5rem;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background-color: #16a34a;
+      color: white;
+      padding: 0.5rem 0;
+      border-radius: 0.5rem;
+      text-decoration: none;
+    }
+    
+    .btn:hover {
+      background-color: #15803d;
+    }
+    
+    hr {
+      margin: 0.5rem 0;
+      border: 0;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Payment Successful!</h1>
+    <p class="message">Here's your TikTok account details:</p>
+
+    <div id="accountDetails">
+      <!-- Accounts will be inserted here -->
+    </div>
+
+    <a href="index.html" class="btn">Back to Home</a>
+  </div>
+
+  <script>
+    const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+
+    const accountDetails = document.getElementById('accountDetails');
+
+    if (accounts.length > 0) {
+      accounts.forEach(acc => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <p><strong>Email:</strong> ${acc.email}</p>
+          <p><strong>Password:</strong> ${acc.password}</p>
+          <hr>
+        `;
+        accountDetails.appendChild(div);
+      });
+    } else {
+      accountDetails.innerHTML = "<p>No accounts found. Please contact support.</p>";
+    }
+  </script>
+
+</body>
+</html>

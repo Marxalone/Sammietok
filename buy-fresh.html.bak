@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buy Fresh Account — Sammie</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-900">
+
+  <header class="bg-black text-white p-4 flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold">Sammie TikTok</a>
+  </header>
+
+  <section class="py-20 px-6 max-w-lg mx-auto text-center">
+    <h1 class="text-3xl font-bold mb-6">Buy Fresh US/UK TikTok Account</h1>
+    <p class="mb-8 text-gray-600">₦5,000 per account</p>
+
+    <form id="purchaseForm" class="space-y-6">
+      <div>
+        <label for="quantity" class="block mb-2 font-bold">How many accounts?</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1" class="w-full border p-3 rounded">
+      </div>
+      
+      <div class="text-2xl font-bold" id="totalPrice">Total: ₦5,000</div>
+
+      <button type="button" onclick="payNow()" class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg text-lg">
+        Pay Now
+      </button>
+    </form>
+  </section>
+
+  <script>
+    const quantityInput = document.getElementById('quantity');
+    const totalPriceText = document.getElementById('totalPrice');
+    const pricePerAccount = 5000;
+
+    quantityInput.addEventListener('input', () => {
+      const quantity = parseInt(quantityInput.value) || 1;
+      totalPriceText.innerText = `Total: ₦${quantity * pricePerAccount}`;
+    });
+
+    function payNow() {
+      const quantity = quantityInput.value;
+      const total = quantity * pricePerAccount;
+      window.location.href = `/payment.html?type=fresh&qty=${quantity}&amount=${total}`;
+    }
+  </script>
+
+</body>
+</html>
