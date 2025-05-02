@@ -2,207 +2,415 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Verification</title>
   <style>
-    body {
+    :root {
+      --primary: #4361ee;
+      --success: #4cc9f0;
+      --danger: #f72585;
+      --dark: #212529;
+      --light: #f8f9fa;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       font-family: 'Poppins', sans-serif;
-      background: #f2f2f2;
-      padding: 30px;
     }
-    .payment-form {
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
-      max-width: 500px;
-      margin: auto;
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    .form-input {
-      margin-bottom: 15px;
-    }
-    .form-input label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .form-input input, .form-input select {
+    
+    .payment-container {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+      max-width: 600px;
     }
-    #status-message {
-      margin-top: 20px;
-      font-weight: bold;
+    
+    .payment-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    
+    .payment-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .payment-header {
+      background: var(--primary);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .payment-header h2 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .payment-details {
+      background: var(--light);
+      padding: 1.5rem;
+      margin: 1rem;
+      border-radius: 8px;
+      position: relative;
+    }
+    
+    .payment-details h3 {
+      color: var(--dark);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .payment-details p {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .copy-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    
+    .copy-btn:hover {
+      background: #3a56d4;
+    }
+    
+    .copy-btn.copied {
+      background: var(--success);
+    }
+    
+    .payment-form {
+      padding: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background: #3a56d4;
+    }
+    
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .status-message {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .status-success {
+      background: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    
+    .status-error {
+      background: rgba(247, 37, 133, 0.1);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    
+    .status-loading {
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    
+    .loader {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 0.5rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-
-<div class="payment-form">
-  <h2>Upload Your Payment Receipt</h2>
-  <form id="paymentForm">
-    <div class="form-input">
-      <label for="accountType">Select Account Type</label>
-      <select id="accountType" required>
-        <option value="">Choose...</option>
-        <option value="Fresh">Fresh UK Account</option>
-        <option value="Old">Old UK Account</option>
-      </select>
-    </div>
-    <div class="form-input">
-      <label for="quantity">Quantity</label>
-      <input type="number" id="quantity" min="1" required>
-    </div>
-    <div class="form-input">
-      <label for="email-address">Email Address</label>
-      <input type="email" id="email-address" required>
-    </div>
-    <div class="form-input">
-      <label for="receipt-upload">Upload Receipt Image</label>
-      <input type="file" id="receipt-upload" accept="image/*" required>
-    </div>
-    <button type="submit">Verify Payment</button>
-  </form>
-  
-  <div id="status-message"></div>
-</div>
-<script>
-// Secret Admin Panel Trigger + Password
-document.addEventListener('keydown', function(event) {
-  if (event.shiftKey && event.key.toLowerCase() === 'a') {
-    const password = prompt('Enter Admin Password:');
-    if (password === 'marxisgod2025') { // Change this password to anything you want
-      openAdminPanel();
-    } else {
-      alert('Wrong password. Access denied!');
-    }
-  }
-});
-
-function openAdminPanel() {
-  const records = JSON.parse(localStorage.getItem('lastReceiptReview'));
-  if (!records) {
-    alert('No review data found.');
-    return;
-  }
-
-  const win = window.open('', '_blank');
-  win.document.write(`
-    <html>
-      <head>
-        <title>Admin Panel - Receipt Reviews</title>
-        <style>
-          body { font-family: 'Poppins', sans-serif; background: #f2f2f2; padding: 20px; }
-          .record { background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
-          img { max-width: 100%; border-radius: 5px; margin-top: 10px; }
-          .approve-btn, .ban-btn { margin-top: 10px; padding: 8px 12px; border: none; cursor: pointer; border-radius: 5px; }
-          .approve-btn { background: green; color: white; }
-          .ban-btn { background: red; color: white; margin-left: 10px; }
-        </style>
-      </head>
-      <body>
-        <h2>Admin Panel: Payment Reviews</h2>
-        <div class="record">
-          <strong>AI Decision:</strong> ${records.aiResponse}<br>
-          <strong>Upload Time:</strong> ${new Date(records.time).toLocaleString()}<br>
-          <img src="${records.url}" alt="Receipt">
-          <div>
-            <button class="approve-btn" onclick="alert('✅ Approved manually!')">✅ Approve</button>
-            <button class="ban-btn" onclick="alert('⛔ Banned manually!')">⛔ Ban</button>
-          </div>
+  <div class="payment-container">
+    <div class="payment-card">
+      <div class="payment-header">
+        <h2>Upload Your Payment Receipt</h2>
+        <p>Complete your account purchase</p>
+      </div>
+      
+      <div class="payment-details">
+        <h3>Pay to UBA Bank</h3>
+        <p><span>🏦</span> <strong>Bank:</strong> United Bank for Africa (UBA)</p>
+        <p><span>💳</span> <strong>Account Number:</strong> <span id="account-number">2350538653</span></p>
+        <p><span>👤</span> <strong>Account Name:</strong> <span id="account-name">Ebieobari Samuel Sunny</span></p>
+        <button class="copy-btn" id="copy-btn">
+          <span class="copy-text">Copy Details</span>
+        </button>
+      </div>
+      
+      <form id="paymentForm" class="payment-form">
+        <div class="form-group">
+          <label for="accountType">Account Type</label>
+          <select id="accountType" class="form-control" required>
+            <option value="">Select account type...</option>
+            <option value="Fresh UK">Fresh UK Account (₦5,000)</option>
+            <option value="Old UK">Old UK Account (₦10,000)</option>
+            <option value="Fresh USA">Fresh USA Account (₦5,000)</option>
+            <option value="Old USA">Old USA Account (₦10,000)</option>
+          </select>
         </div>
-      </body>
-    </html>
-  `);
-}
-</script>
-<script>
-const paymentForm = document.getElementById('paymentForm');
-const statusMessage = document.getElementById('status-message');
+        
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input type="number" id="quantity" class="form-control" min="1" value="1" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="receipt">Upload Receipt (Image)</label>
+          <input type="file" id="receipt" class="form-control" accept="image/*" required>
+        </div>
+        
+        <button type="submit" class="submit-btn" id="submit-btn">
+          Verify Payment
+        </button>
+        
+        <div id="status-message" class="status-message" style="display: none;"></div>
+      </form>
+    </div>
+  </div>
 
-paymentForm.addEventListener('submit', async function(e) {
-  e.preventDefault();
+  <script>
+    // Price mapping
+    const PRICES = {
+      "Fresh UK": 5000,
+      "Old UK": 10000,
+      "Fresh USA": 5000,
+      "Old USA": 10000
+    };
 
-  let accountType = document.getElementById("accountType").value;
-  let quantity = parseInt(document.getElementById("quantity").value);
-  let email = document.getElementById("email-address").value;
-  let receipt = document.getElementById("receipt-upload").files[0];
+    // DOM elements
+    const paymentForm = document.getElementById('paymentForm');
+    const statusMessage = document.getElementById('status-message');
+    const copyBtn = document.getElementById('copy-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const accountNumber = document.getElementById('account-number');
+    const accountName = document.getElementById('account-name');
 
-  if (!accountType || !email || quantity < 1 || !receipt) {
-    statusMessage.innerHTML = "<span style='color:red;'>❌ Please fill all fields and upload a receipt.</span>";
-    return;
-  }
-
-  statusMessage.innerHTML = "⏳ Uploading and verifying your receipt, please wait...";
-
-  const formData = new FormData();
-  formData.append('files[]', receipt);
-
-  try {
-    const uploadRes = await fetch('https://uguu.se/upload', {
-      method: 'POST',
-      body: formData
+    // Copy account details
+    copyBtn.addEventListener('click', () => {
+      const textToCopy = `Bank: UBA\nAccount Number: ${accountNumber.textContent}\nAccount Name: ${accountName.textContent}`;
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        copyBtn.innerHTML = '✓ Copied!';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span class="copy-text">Copy Details</span>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
     });
-    const uploadData = await uploadRes.json();
-    const receiptUrl = uploadData.files[0].url;
 
-    const expectedAmount = (accountType === "Fresh" ? 5000 : 10000) * quantity;
-    const today = new Date();
-    const dateString = today.toLocaleDateString('en-GB'); // 02/05/2025
+    // Payment verification
+    paymentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Get form values
+      const accountType = document.getElementById("accountType").value;
+      const quantity = parseInt(document.getElementById("quantity").value);
+      const email = document.getElementById("email").value;
+      const receipt = document.getElementById("receipt").files[0];
+      
+      // Validation
+      if (!accountType || !email || quantity < 1 || !receipt) {
+        showStatus("Please fill all fields and upload a receipt", "error");
+        return;
+      }
+      
+      const expectedAmount = PRICES[accountType] * quantity;
+      submitBtn.disabled = true;
+      showStatus("Uploading and verifying receipt...", "loading");
+      
+      try {
+        // 1. Upload receipt
+        const formData = new FormData();
+        formData.append('files[]', receipt);
+        
+        const uploadRes = await fetch('https://uguu.se/upload', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const uploadData = await uploadRes.json();
+        const receiptUrl = uploadData.files[0].url;
+        
+        // 2. Prepare AI verification prompt
+        const today = new Date();
+        const dateString = today.toLocaleDateString('en-GB');
+        
+        const prompt = `
+        STRICT PAYMENT VERIFICATION:
+        Confirm ALL conditions are met in the receipt:
+        1. Amount: ₦${expectedAmount} (exact)
+        2. Recipient Name: "Ebieobari Samuel Sunny"
+        3. Bank: UBA (Account: 2350538653)
+        4. Date: ${dateString}
+        5. Currency: NGN
+        6. Transaction Reference visible
 
-    const question = `
-You are a strict payment verification AI.
-Carefully inspect the attached receipt and check:
-
-- Was exactly ₦${expectedAmount} paid (no more, no less, not even ₦1 difference)?
-- Is the payment to "Sammie Store"?
-- Was the transaction made today (${dateString})?
-- Is the currency Nigerian Naira (NGN)?
-- Is the receipt clear and readable (not blurry)?
-- Does the receipt contain a transaction Reference Number?
-
-If ALL are TRUE, reply only: PASS.
-If ANY are FALSE, reply: FAIL - [explain reason shortly].
-`;
-
-    const apiURL = `https://api.hiuraa.my.id/ai/gemini-advanced?text=${encodeURIComponent(question)}&_mediaUrl=${encodeURIComponent(receiptUrl)}&sessionid=${Date.now()}`;
-
-    const aiRes = await fetch(apiURL);
-    const aiData = await aiRes.json();
-
-    if (!aiData || !aiData.result) {
-      throw new Error('No response from AI.');
+        Reply ONLY:
+        - "APPROVED" if ALL are correct
+        - "REJECTED: [Reason]" if any fail
+        `;
+        
+        // 3. Call MarxAI API
+        const sessionCookie = await getMarxAISession();
+        const headers = {
+          "content-type": "application/json",
+          "cookie": `editeecom_session=${sessionCookie}`,
+          "x-requested-with": "XMLHttpRequest"
+        };
+        
+        const aiResponse = await fetch("https://editee.com/submit/chatgptfree", {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            context: " ",
+            selected_model: "gemini",
+            important: "aV77OsKy",
+            user_input: `${prompt}\n\nReceipt URL: ${receiptUrl}`
+          })
+        });
+        
+        const aiData = await aiResponse.json();
+        const verificationResult = aiData.text.trim();
+        
+        // 4. Handle response
+        if (verificationResult.includes("APPROVED")) {
+          showStatus("Payment verified successfully! Preparing your account...", "success");
+          
+          // Save order info
+          localStorage.setItem('orderInfo', JSON.stringify({ 
+            accountType, 
+            quantity,
+            email,
+            verifiedAt: new Date().toISOString()
+          }));
+          
+          // Redirect after delay
+          setTimeout(() => {
+            window.location.href = 'success.html';
+          }, 3000);
+        } else {
+          const reason = verificationResult.replace("REJECTED:", "").trim();
+          showStatus(`Payment declined: ${reason || "Invalid receipt"}`, "error");
+        }
+        
+        // Save review data
+        localStorage.setItem('lastReceiptReview', JSON.stringify({
+          url: receiptUrl,
+          aiResponse: verificationResult,
+          time: new Date().toISOString()
+        }));
+        
+      } catch (error) {
+        console.error("Verification error:", error);
+        showStatus("Error verifying payment. Please try again.", "error");
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+    
+    // Helper functions
+    async function getMarxAISession() {
+      const res = await fetch("https://editee.com/chat-gpt");
+      const cookie = res.headers.get('set-cookie');
+      return cookie ? cookie.split(';')[0].split('=')[1] : null;
     }
-
-    const aiResult = aiData.result.toLowerCase();
-
-    // Save receipt + AI response (optional for admin record)
-    localStorage.setItem('lastReceiptReview', JSON.stringify({
-      url: receiptUrl,
-      aiResponse: aiData.result,
-      time: new Date().toISOString()
-    }));
-
-    if (aiResult.includes('pass')) {
-      statusMessage.innerHTML = "<span style='color:green;'>✅ Payment verified successfully! Preparing your account...</span>";
-
-      // Save order info
-      localStorage.setItem('orderInfo', JSON.stringify({ accountType, quantity }));
-
-      setTimeout(() => {
-        window.location.href = 'success.html';
-      }, 3000);
-    } else {
-      statusMessage.innerHTML = `<span style='color:red;'>❌ Payment Declined: ${aiData.result}</span>`;
+    
+    function showStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.style.display = "block";
+      statusMessage.className = `status-message status-${type}`;
+      
+      if (type === "loading") {
+        statusMessage.innerHTML = `
+          <span class="loader"></span> ${message}
+        `;
+      }
     }
-
-  } catch (error) {
-    console.error('Verification Error:', error);
-    statusMessage.innerHTML = "<span style='color:red;'>❌ Error verifying payment. Please try again later.</span>";
-  }
-});
-</script>
-
+  </script>
 </body>
 </html>
