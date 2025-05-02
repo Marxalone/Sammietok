@@ -1,5 +1,3 @@
-<!-- style this very professionally -->
-<!-- payment.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +6,24 @@
   <title>Buy TikTok Accounts | Sammie Store</title>
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <style>
+    :root {
+      --primary: #16a34a;
+      --primary-hover: #15803d;
+      --secondary: #2563eb;
+      --secondary-hover: #1d4ed8;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
       background-color: #f9fafb;
       display: flex;
@@ -15,72 +31,156 @@
       justify-content: center;
       min-height: 100vh;
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      color: var(--text);
+      line-height: 1.5;
     }
     
     .payment-container {
       background-color: white;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      border-radius: 12px;
-      padding: 2rem;
-      max-width: 28rem;
+      box-shadow: var(--shadow-lg);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 32rem;
       width: 100%;
-      margin: 1rem;
+      margin: 1.5rem;
     }
     
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      color: #111827;
+    }
+    
+    .bank-details {
+      background-color: #f3f4f6;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    
+    .bank-details p {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .bank-details p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .divider {
+      height: 1px;
+      background-color: var(--border);
+      margin: 1.5rem 0;
+      opacity: 0.5;
     }
     
     .payment-form {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.25rem;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     
     label {
-      display: block;
-      margin-bottom: 0.25rem;
       font-weight: 500;
+      font-size: 0.9375rem;
+      color: #374151;
     }
     
     select, input {
       width: 100%;
-      border: 1px solid #e5e7eb;
-      border-radius: 0.5rem;
-      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
       font-size: 1rem;
+      transition: all 0.2s ease;
+      background-color: white;
     }
     
-    button[type="submit"] {
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+    }
+    
+    .btn {
       width: 100%;
-      background-color: #16a34a;
       color: white;
-      padding: 0.5rem;
+      padding: 0.875rem;
       border: none;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       font-size: 1rem;
+      font-weight: 500;
       cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
     
-    button[type="submit"]:hover {
-      background-color: #15803d;
+    .btn-primary {
+      background-color: var(--primary);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background-color: var(--secondary);
+      margin-top: 0.5rem;
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--secondary-hover);
+      transform: translateY(-1px);
     }
     
     .back-link {
       margin-top: 1.5rem;
       display: block;
       text-align: center;
-      color: #16a34a;
-      font-size: 0.875rem;
+      color: var(--primary);
+      font-size: 0.9375rem;
+      font-weight: 500;
       text-decoration: none;
+      transition: all 0.2s ease;
     }
     
     .back-link:hover {
       text-decoration: underline;
+      color: var(--primary-hover);
+    }
+    
+    .price-display {
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 0.25rem;
+      font-size: 0.9375rem;
+    }
+    
+    @media (max-width: 480px) {
+      .payment-container {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -89,46 +189,74 @@
   <div class="payment-container">
     <h1>Buy US/UK TikTok Accounts</h1>
     
+    <div class="bank-details">
+      <p>🏦 <strong>Bank:</strong> UBA</p>
+      <p>💳 <strong>Account number:</strong> 2350538653</p>
+      <p>👤 <strong>Name:</strong> Ebieobari Samuel Sunny</p>
+    </div>
+    
+    <div class="divider"></div>
+    
     <form id="paymentForm" class="payment-form">
-      <div>
-        <label>Account Type</label>
+      <div class="form-group">
+        <label for="accountType">Account Type</label>
         <select id="accountType" required>
-          <option value="">Select</option>
+          <option value="">Select account type</option>
           <option value="Fresh">Fresh UK/US (₦5,000)</option>
           <option value="Old">Old UK/US (₦10,000)</option>
         </select>
       </div>
 
-      <div>
-        <label>Quantity</label>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
         <input type="number" id="quantity" min="1" value="1" required>
+        <div id="totalPrice" class="price-display">Total: ₦5,000</div>
       </div>
 
-      <div>
-        <label>Email</label>
+      <div class="form-group">
+        <label for="email-address">Email</label>
         <input type="email" id="email-address" required placeholder="youremail@example.com">
       </div>
 
-      <button type="submit">Proceed to Pay</button>
+      <button type="submit" class="btn btn-primary">Proceed to Payment</button>
       
-    </form>
- <a href="https://wa.me/2348108778025" class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium text-center">Negotiate on WhatsApp</a>
+      <a href="https://wa.me/2348108778025" class="btn btn-secondary">
+        Negotiate on WhatsApp
+      </a>
     </form>
     
-    <a href="index.html" class="back-link">Back to Home</a>
+    <a href="index.html" class="back-link">← Back to Home</a>
   </div>
 
   <script>
     const paymentForm = document.getElementById('paymentForm');
+    const accountTypeSelect = document.getElementById('accountType');
+    const quantityInput = document.getElementById('quantity');
+    const totalPriceDisplay = document.getElementById('totalPrice');
+
+    // Calculate and display price
+    function updatePrice() {
+      if (!accountTypeSelect.value) return;
+      
+      const pricePer = accountTypeSelect.value === "Fresh" ? 5000 : 10000;
+      const quantity = parseInt(quantityInput.value) || 0;
+      const totalAmount = pricePer * quantity;
+      
+      totalPriceDisplay.textContent = `Total: ₦${totalAmount.toLocaleString()}`;
+    }
+
+    // Event listeners for price calculation
+    accountTypeSelect.addEventListener('change', updatePrice);
+    quantityInput.addEventListener('input', updatePrice);
 
     paymentForm.addEventListener('submit', payWithPaystack, false);
 
     function payWithPaystack(e) {
       e.preventDefault();
 
-      let accountType = document.getElementById("accountType").value;
-      let quantity = parseInt(document.getElementById("quantity").value);
-      let email = document.getElementById("email-address").value;
+      let accountType = accountTypeSelect.value;
+      let quantity = parseInt(quantityInput.value);
+      let email = document.getElementById('email-address').value;
 
       if (!accountType || !email || quantity < 1) {
         alert('Please fill all fields correctly.');
@@ -151,7 +279,11 @@
         callback: function(response){
           // Payment successful
           // Save details for success page
-          localStorage.setItem('orderInfo', JSON.stringify({accountType, quantity}));
+          localStorage.setItem('orderInfo', JSON.stringify({
+            accountType, 
+            quantity,
+            amount: (totalAmount/100).toLocaleString()
+          }));
 
           // Redirect
           window.location.href = 'success.html';
@@ -160,6 +292,9 @@
 
       handler.openIframe();
     }
+
+    // Initialize price display
+    updatePrice();
   </script>
 
 </body>
