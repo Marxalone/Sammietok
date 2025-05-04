@@ -14,7 +14,7 @@
 
   <section class="py-20 px-6 max-w-lg mx-auto text-center">
     <h1 class="text-3xl font-bold mb-6">Buy Old US/UK TikTok Account</h1>
-    <p class="mb-8 text-gray-600">₦10,000 per account</p>
+    <p class="mb-8 text-gray-600">₦12,000 per account</p>
 
     <form id="purchaseForm" class="space-y-6">
       <div>
@@ -22,7 +22,7 @@
         <input type="number" id="quantity" name="quantity" value="1" min="1" class="w-full border p-3 rounded">
       </div>
       
-      <div class="text-2xl font-bold" id="totalPrice">Total: ₦10,000</div>
+      <div class="text-2xl font-bold" id="totalPrice">Total: ₦12,000</div>
 
       <button type="button" onclick="payNow()" class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg text-lg">
         Pay Now
